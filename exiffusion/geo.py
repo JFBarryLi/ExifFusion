@@ -1,6 +1,7 @@
 import functools
 import logging
 
+from typing import Tuple
 from pydantic import BaseModel
 
 from geopy.geocoders import Nominatim
@@ -25,7 +26,29 @@ class Location(BaseModel):
     country_code: str
 
 
-def reverse_geo_code(lat, lng):
+class LatLng(BaseModel):
+    latitude: float
+    longitude: float
+
+
+def dms_to_degrees(
+    GPSLatitudeRef: str,
+    GPSLatitude: Tuple[float, float, float],
+    GPSLongitudeRef: str,
+    GPSLongitude: Tuple[float, float, float],
+) -> LatLng:
+    lat_sign = -1 if GPSLatitudeRef == "S" else 1
+    lng_sign = -1 if GPSLongitudeRef == "W" else 1
+
+    latitude = lat_sign * (GPSLatitude[0] + GPSLatitude[1] / 60 + GPSLatitude[2] / 3600)
+    longitude = lng_sign * (
+        GPSLongitude[0] + GPSLongitude[1] / 60 + GPSLongitude[2] / 3600
+    )
+
+    return LatLng(latitude=latitude, longitude=longitude)
+
+
+def reverse_geo_code(lat: float, lng: float) -> Location:
     try:
         rev = reverse((lat, lng), language="en")
 

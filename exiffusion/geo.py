@@ -31,6 +31,19 @@ class LatLng(BaseModel):
     longitude: float
 
 
+def dms_to_location(
+    GPSLatitudeRef: str,
+    GPSLatitude: Tuple[float, float, float],
+    GPSLongitudeRef: str,
+    GPSLongitude: Tuple[float, float, float],
+) -> Location:
+    latlng = dms_to_degrees(GPSLatitudeRef, GPSLatitude, GPSLongitudeRef, GPSLongitude)
+
+    location = reverse_geo_code(latlng.latitude, latlng.longitude)
+
+    return location
+
+
 def dms_to_degrees(
     GPSLatitudeRef: str,
     GPSLatitude: Tuple[float, float, float],

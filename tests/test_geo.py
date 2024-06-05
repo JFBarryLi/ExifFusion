@@ -1,5 +1,32 @@
 from exiffusion.geo import dms_to_degrees
 from exiffusion.geo import reverse_geo_code
+from exiffusion.geo import dms_to_location
+
+
+def test_dms_to_location_europe():
+    GPSLatitudeRef = "N"
+    GPSLatitude = (46.0, 28.0, 15.79)
+    GPSLongitudeRef = "E"
+    GPSLongitude = (30.0, 44.0, 28.3)
+
+    location = dms_to_location(
+        GPSLatitudeRef, GPSLatitude, GPSLongitudeRef, GPSLongitude
+    )
+
+    assert location.city == "Odesa"
+
+
+def test_dms_to_location_south_america():
+    GPSLatitudeRef = "S"
+    GPSLatitude = (33.0, 26.0, 50.9532)
+    GPSLongitudeRef = "W"
+    GPSLongitude = (70.0, 40.0, 25.2336)
+
+    location = dms_to_location(
+        GPSLatitudeRef, GPSLatitude, GPSLongitudeRef, GPSLongitude
+    )
+
+    assert location.city == "Santiago"
 
 
 def test_dms_to_degrees_europe():

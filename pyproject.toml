@@ -21,6 +21,7 @@ dependencies = [
     "pillow~=10.3",
     "pillow-heif~=0.16.0",
     "geopy~=2.4",
+    "rich~=13.7",
 ]
 
 [project.urls]

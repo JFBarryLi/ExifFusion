@@ -1,4 +1,6 @@
 from importlib.resources import files
+from pathlib import PosixPath
+import logging
 
 from PIL import ImageFont, ImageDraw, Image
 from pillow_heif import register_heif_opener
@@ -7,8 +9,11 @@ from . import ROOT_DIR
 
 register_heif_opener()
 
+log = logging.getLogger(__name__)
 
-def overlay_text(image: str, text: str):
+
+def overlay_text(image: str | PosixPath, text: str):
+    log.info(f"Overlaying text on {image}.")
     img = Image.open(image)
 
     font_size = max(img.size) * 0.025
@@ -27,4 +32,6 @@ def overlay_text(image: str, text: str):
         (width - right - margin, height - bottom - margin), text, text_color, font=font
     )
 
-    img.save(ROOT_DIR / f'output/{image.split('/')[-1]}')
+    output_name = image.name if image is PosixPath else image.split("/")[-1]
+
+    img.save(ROOT_DIR / f"output/{output_name}")

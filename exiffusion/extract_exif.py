@@ -5,11 +5,15 @@ from pillow_heif import register_heif_opener
 
 from typing import Tuple
 from pydantic import BaseModel
+from pathlib import PosixPath
+import logging
 
 register_heif_opener()
 
 GPSINFO_IFD_KEY = 34853
 GENERAL_IFD_KEY = 34665
+
+log = logging.getLogger(__name__)
 
 
 class TopLevelExifTags(BaseModel):
@@ -65,7 +69,9 @@ class RelevantExifTags(TopLevelExifTags, GPSExifTags, GeneralIFDTags):
     pass
 
 
-def get_exif(img: str, get_detailed_tags=False) -> RelevantExifTags:
+def get_exif(img: str | PosixPath, get_detailed_tags=False) -> RelevantExifTags:
+    log.info(f"Getting Exif data from {img}.")
+
     image = Image.open(img)
     exif = image.getexif()
 

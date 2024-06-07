@@ -3,3 +3,4 @@ pillow==10.3.0
 pillow-heif==0.16.0
 pytest==8.2.1
 geopy==2.4.1
+rich=13.7.1

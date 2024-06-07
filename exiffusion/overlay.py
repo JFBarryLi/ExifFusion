@@ -1,3 +1,5 @@
+from importlib.resources import files
+
 from PIL import ImageFont, ImageDraw, Image
 from pillow_heif import register_heif_opener
 
@@ -6,12 +8,12 @@ from . import ROOT_DIR
 register_heif_opener()
 
 
-# TODO: Get font
 def overlay_text(image: str, text: str):
     img = Image.open(image)
 
     font_size = max(img.size) * 0.025
-    font = ImageFont.load_default(size=font_size)
+    font_path = files("exiffusion.assets").joinpath("WorkSans-Medium.otf")
+    font = ImageFont.truetype(font_path, font_size)
     width, height = img.size
     margin = font_size
 

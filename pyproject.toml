@@ -26,3 +26,6 @@ dependencies = [
 [project.urls]
 Homepage = "https://github.com/JFBarryLi/ExifFusion"
 Issues = "https://github.com/JFBarryLi/ExifFusion/issues"
+
+[tool.setuptools.package-data]
+"exiffusion.asset" = ["*.otf"]

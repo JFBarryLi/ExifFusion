@@ -21,13 +21,6 @@ def overlay_text(image: str, text: str):
 
     left, top, right, bottom = draw.textbbox((0, 0), text, font=font)
 
-    calc_text_color(
-        img,
-        width - right - margin,
-        height - bottom - margin,
-        width - margin,
-        height - margin,
-    )
     text_color = (255, 255, 255)
 
     draw.text(
@@ -35,7 +28,3 @@ def overlay_text(image: str, text: str):
     )
 
     img.save(ROOT_DIR / f'output/{image.split('/')[-1]}')
-
-
-def calc_text_color(img: Image, left: int, top: int, right: int, bottom: int):
-    pass

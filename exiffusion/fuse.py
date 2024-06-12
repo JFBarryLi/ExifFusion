@@ -11,6 +11,8 @@ log = logging.getLogger(__name__)
 
 
 def fuse_exif(path: str | PosixPath):
+    imgs = []
+
     if os.path.isdir(path):
         heic = sorted(Path(path).glob("*.heic", case_sensitive=False))
         jpg = sorted(Path(path).glob("*.jpg", case_sensitive=False))
@@ -19,6 +21,10 @@ def fuse_exif(path: str | PosixPath):
         imgs = heic + jpg + jpeg
     elif os.path.isfile(path):
         imgs = [Path(path)]
+
+    if len(imgs) == 0:
+        log.info("No valid images found.")
+        return
 
     for img in imgs:
         log.info(f"Processing: {img}")
@@ -36,7 +42,7 @@ def fuse_exif(path: str | PosixPath):
                 exif_tags.DateTime, "%Y:%m:%d %H:%M:%S"
             ).strftime("%Y-%m-%d %H:%M:%S")
 
-            text = f"{formatted_datetime}\n{location.city}, {location.country}\n{round(location.latitude, 4)}, {round(location.longitude, 4)}"
+            text = f"{formatted_datetime}\n{location.city}, {location.country}"
             overlay_text(img, text)
         except Exception as e:
             log.error(f"Failed to process {img}. Error: {e}")

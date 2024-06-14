@@ -4,10 +4,12 @@ import typer
 
 from importlib import metadata
 
+from exiffusion.fuse import fuse_exif
+
 APP_NAME = "ExifFusion"
 APP_VERSION = metadata.version("exiffusion")
 
-app = typer.Typer()
+app = typer.Typer(no_args_is_help=True)
 
 
 def _version_callback(value: bool) -> None:
@@ -28,6 +30,17 @@ def main(
     ),
 ) -> None:
     return
+
+
+@app.command()
+def fuse(
+    path: str = typer.Argument(..., help="Input directory or image path."),
+    output: str = typer.Argument(..., help="Output directory to store the images."),
+):
+    """
+    Overlay Exif metadata such as timestamp and location onto images.
+    """
+    fuse_exif(path, output)
 
 
 def cli():

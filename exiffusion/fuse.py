@@ -10,7 +10,7 @@ from exiffusion.overlay import overlay_text
 log = logging.getLogger(__name__)
 
 
-def fuse_exif(path: str | PosixPath):
+def fuse_exif(path: str | PosixPath, output_dir: str | PosixPath):
     imgs = []
 
     if os.path.isdir(path):
@@ -65,7 +65,7 @@ def fuse_exif(path: str | PosixPath):
             else:
                 text = f"{formatted_datetime}"
 
-            overlay_text(img, text)
+            overlay_text(img, text, output_dir)
 
         except Exception as e:
             log.error(f"Failed to process {img}. Error: {e}")

@@ -7,14 +7,12 @@ from pillow_heif import register_heif_opener
 
 from exiffusion.color import Color, color_contrast
 
-from . import ROOT_DIR
-
 register_heif_opener()
 
 log = logging.getLogger(__name__)
 
 
-def overlay_text(image: str | PosixPath, text: str):
+def overlay_text(image: str | PosixPath, text: str, output_dir: str | PosixPath):
     log.info(f"Overlaying text on {image}.")
     img = Image.open(image)
 
@@ -45,7 +43,7 @@ def overlay_text(image: str | PosixPath, text: str):
 
     output_name = image.name if type(image) is PosixPath else image.split("/")[-1]
 
-    img.save(ROOT_DIR / f"output/{output_name}")
+    img.save(f"{output_dir}/{output_name}")
 
 
 def calc_text_color(img: Image, left: int, top: int, right: int, bottom: int) -> Color:

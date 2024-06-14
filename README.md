@@ -7,7 +7,6 @@ Overlay EXIF metadata onto photos.
 
 ## TODO
 - Make geo more robust, especially for places without a city.
-- Text positions.
 
 ## Development
 ```bash

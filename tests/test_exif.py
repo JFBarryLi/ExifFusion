@@ -1,6 +1,6 @@
 from . import EXAMPLE_SOURCE_DIR
 
-from exiffusion.extract_exif import get_exif
+from exiffusion.exif import get_exif
 
 
 def test_get_exif():

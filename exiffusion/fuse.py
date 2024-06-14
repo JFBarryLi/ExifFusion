@@ -3,7 +3,7 @@ from datetime import datetime
 import os
 import logging
 
-from exiffusion.extract_exif import get_exif
+from exiffusion.exif import get_exif
 from exiffusion.geo import dms_to_location
 from exiffusion.overlay import overlay_text
 

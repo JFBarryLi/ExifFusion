@@ -20,8 +20,8 @@ class Location(BaseModel):
     address: Optional[str] = None
     latitude: float
     longitude: float
-    city: Optional[str]
-    state: Optional[str]
+    city: Optional[str] = None
+    state: Optional[str] = None
     country: str
     country_code: str
 

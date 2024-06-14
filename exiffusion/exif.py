@@ -3,7 +3,7 @@ from PIL.Image import Exif
 from PIL.ExifTags import TAGS, GPSTAGS
 from pillow_heif import register_heif_opener
 
-from typing import Tuple
+from typing import Tuple, Optional
 from pydantic import BaseModel
 from pathlib import PosixPath
 import logging
@@ -17,52 +17,52 @@ log = logging.getLogger(__name__)
 
 
 class TopLevelExifTags(BaseModel):
-    Orientation: int = 1
+    Orientation: Optional[int] = 1
     DateTime: str
-    Make: str = None
-    Model: str = None
-    HostComputer: str = None
-    Software: str = None
+    Make: Optional[str] = None
+    Model: Optional[str] = None
+    HostComputer: Optional[str] = None
+    Software: Optional[str] = None
 
 
 class GPSExifTags(BaseModel):
-    GPSLatitudeRef: str = None
-    GPSLatitude: Tuple[float, float, float] = None
-    GPSLongitudeRef: str = None
-    GPSLongitude: Tuple[float, float, float] = None
+    GPSLatitudeRef: Optional[str] = None
+    GPSLatitude: Optional[Tuple[float, float, float]] = None
+    GPSLongitudeRef: Optional[str] = None
+    GPSLongitude: Optional[Tuple[float, float, float]] = None
 
 
 class GeneralIFDTags(BaseModel):
-    ShutterSpeedValue: float = None
-    ApertureValue: float = None
-    DateTimeOriginal: str = None
-    DateTimeDigitized: str = None
-    BrightnessValue: float = None
-    ExposureBiasValue: float = None
-    MeteringMode: int = None
-    ColorSpace: int = None
-    Flash: int = None
-    FocalLength: float = None
-    ExifImageWidth: int = None
-    ExifImageHeight: int = None
-    FocalLengthIn35mmFilm: int = None
-    OffsetTime: str = None
-    SubsecTimeOriginal: str = None
-    SubjectLocation: Tuple[int, int, int, int] = None
-    SubsecTimeDigitized: str = None
-    SensingMethod: int = None
-    ExposureTime: float = None
-    FNumber: float = None
-    SceneType: int = None
-    ExposureProgram: int = None
-    ISOSpeedRatings: int = None
-    ExposureMode: int = None
-    WhiteBalance: int = None
-    LensSpecification: Tuple[float, float, float, float] = None
-    LensMake: str = None
-    LensModel: str = None
-    CompositeImage: int = None
-    # MakerNote: bytes
+    ShutterSpeedValue: Optional[float] = None
+    ApertureValue: Optional[float] = None
+    DateTimeOriginal: Optional[str] = None
+    DateTimeDigitized: Optional[str] = None
+    BrightnessValue: Optional[float] = None
+    ExposureBiasValue: Optional[float] = None
+    MeteringMode: Optional[int] = None
+    ColorSpace: Optional[int] = None
+    Flash: Optional[int] = None
+    FocalLength: Optional[float] = None
+    ExifImageWidth: Optional[int] = None
+    ExifImageHeight: Optional[int] = None
+    FocalLengthIn35mmFilm: Optional[int] = None
+    OffsetTime: Optional[str] = None
+    SubsecTimeOriginal: Optional[str] = None
+    SubjectLocation: Optional[Tuple[int, int, int, int]] = None
+    SubsecTimeDigitized: Optional[str] = None
+    SensingMethod: Optional[int] = None
+    ExposureTime: Optional[float] = None
+    FNumber: Optional[float] = None
+    SceneType: Optional[int] = None
+    ExposureProgram: Optional[int] = None
+    ISOSpeedRatings: Optional[int] = None
+    ExposureMode: Optional[int] = None
+    WhiteBalance: Optional[int] = None
+    LensSpecification: Optional[Tuple[float, float, float, float]] = None
+    LensMake: Optional[str] = None
+    LensModel: Optional[str] = None
+    CompositeImage: Optional[int] = None
+    # MakerNote: Optional[bytes] = None
 
 
 class RelevantExifTags(TopLevelExifTags, GPSExifTags, GeneralIFDTags):

@@ -97,3 +97,14 @@ def test_reverse_geo_code():
     assert location.state == "England"
     assert location.country == "United Kingdom"
     assert location.country_code == "gb"
+
+
+def test_reverse_geo_code_missing_city():
+    location = reverse_geo_code(51.894525, -116.682883)
+    assert location.latitude == 51.894525
+    assert location.longitude == -116.682883
+    assert location.city is None
+    assert location.state == "Alberta"
+    assert location.country == "Canada"
+    assert location.country_code == "ca"
+    assert location.address.split(",")[0] == "Balfour Wall Route"

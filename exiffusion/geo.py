@@ -1,7 +1,7 @@
 import functools
 import logging
 
-from typing import Tuple
+from typing import Tuple, Optional
 from pydantic import BaseModel
 
 from geopy.geocoders import Nominatim
@@ -17,11 +17,11 @@ reverse = functools.lru_cache(maxsize=1024)(functools.partial(reverse_limit, tim
 
 
 class Location(BaseModel):
-    address: str
+    address: Optional[str] = None
     latitude: float
     longitude: float
-    city: str
-    state: str
+    city: Optional[str]
+    state: Optional[str]
     country: str
     country_code: str
 

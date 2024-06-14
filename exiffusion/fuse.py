@@ -3,6 +3,8 @@ from datetime import datetime
 import os
 import logging
 
+from typing import List
+
 from exiffusion.exif import get_exif
 from exiffusion.geo import dms_to_location
 from exiffusion.overlay import overlay_text
@@ -26,6 +28,14 @@ def fuse_exif(path: str | PosixPath, output_dir: str | PosixPath):
         log.info("No valid images found.")
         return
 
+    imgs = process_images(imgs, output_dir)
+
+    return imgs
+
+
+def process_images(
+    imgs: List[str | PosixPath], output_dir: str | PosixPath
+) -> List[str | PosixPath]:
     for img in imgs:
         log.info(f"Processing: {img}")
         try:

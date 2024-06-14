@@ -32,7 +32,7 @@ def main(
     return
 
 
-@app.command()
+@app.command(no_args_is_help=True)
 def fuse(
     path: str = typer.Argument(..., help="Input directory or image path."),
     output: str = typer.Argument(..., help="Output directory to store the images."),

@@ -67,9 +67,7 @@ exiffusion fuse examples/source/odesa.HEIC examples/output
 
 ## TODO
 
-- Summary report on success and failure at the end
-- qr code
-- Investigate london color-contrast
+- QR code for extra Exif metadata.
 
 ## Development
 ```bash

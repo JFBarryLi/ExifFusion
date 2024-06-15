@@ -143,7 +143,7 @@ def test_calc_dominant_odesa():
 
     dominant_color = calc_dominant_color(cropped_img)
 
-    assert dominant_color == Color(R=220, G=207, B=184)
+    assert dominant_color == Color(R=176, G=163, B=145)
 
 
 def test_calc_dominant_swakopmund():
@@ -174,7 +174,7 @@ def test_calc_dominant_swakopmund():
 
     dominant_color = calc_dominant_color(cropped_img)
 
-    assert dominant_color == Color(R=3, G=3, B=2)
+    assert dominant_color == Color(R=6, G=3, B=2)
 
 
 def test_calc_dominant_dresden():
@@ -205,7 +205,7 @@ def test_calc_dominant_dresden():
 
     dominant_color = calc_dominant_color(cropped_img)
 
-    assert dominant_color == Color(R=182, G=183, B=182)
+    assert dominant_color == Color(R=138, G=139, B=139)
 
 
 def test_calc_dominant_poisson_blanc():

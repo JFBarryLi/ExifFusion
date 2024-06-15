@@ -36,6 +36,9 @@ def fuse_exif(path: str | PosixPath, output_dir: str | PosixPath):
 def process_images(
     imgs: List[str | PosixPath], output_dir: str | PosixPath
 ) -> List[str | PosixPath]:
+    successes = []
+    failures = []
+
     for img in imgs:
         log.info(f"Processing: {img}")
         try:
@@ -76,8 +79,11 @@ def process_images(
                 text = f"{formatted_datetime}"
 
             overlay_text(img, text, output_dir)
-
+            successes.append(img)
         except Exception as e:
             log.error(f"Failed to process {img}. Error: {e}")
+            failures.append(img)
 
+    log.info(f"Successfully processed: {successes}.")
+    log.info(f"Failed to process: {failures}")
     return imgs

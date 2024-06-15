@@ -5,6 +5,8 @@ import logging
 
 from typing import List
 
+from rich.progress import track
+
 from exiffusion.exif import get_exif
 from exiffusion.geo import dms_to_location
 from exiffusion.overlay import overlay_text
@@ -39,7 +41,7 @@ def process_images(
     successes = []
     failures = []
 
-    for img in imgs:
+    for img in track(imgs, description="Processing..."):
         log.info(f"Processing: {img}")
         try:
             exif_tags = get_exif(img)

@@ -87,5 +87,8 @@ def process_images(
             failures.append(img)
 
     log.info(f"Successfully processed: {successes}.")
-    log.info(f"Failed to process: {failures}")
+
+    if failures:
+        log.warn(f"Failed to process: {failures}")
+
     return imgs

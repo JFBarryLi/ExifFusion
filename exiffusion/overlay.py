@@ -65,7 +65,7 @@ def calc_text_color(img: Image, left: int, top: int, right: int, bottom: int) ->
     return white if white_contrast > black_contrast else black
 
 
-def calc_dominant_color(img: Image, palette_size: int = 16) -> Color:
+def calc_dominant_color(img: Image, palette_size: int = 4) -> Color:
     # Reference
     # https://stackoverflow.com/a/61730849
 

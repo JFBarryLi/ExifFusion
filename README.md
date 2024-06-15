@@ -49,21 +49,21 @@ exiffusion fuse --help
 exiffusion fuse examples/source/Swakopmund.HEIC examples/output
 ```
 
-![Swakopmund](examples/output/swakopmund.HEIC)
+![Swakopmund](https://github.com/JFBarryLi/ExifFusion/assets/40674314/f80bf3d9-c936-479a-9a5b-ac2175529bf1)
 
 ### Gdansk
 ```bash
 exiffusion fuse examples/source/gdansk.HEIC examples/output
 ```
 
-![Gdansk](examples/output/gdansk.HEIC)
+![Gdansk](https://github.com/JFBarryLi/ExifFusion/assets/40674314/ecbcc396-0b20-4194-ac53-f98eba3912ed)
 
 ### Odesa
 ```bash
 exiffusion fuse examples/source/odesa.HEIC examples/output
 ```
 
-![Odesa](examples/output/odesa.HEIC)
+![Odesa](https://github.com/JFBarryLi/ExifFusion/assets/40674314/fa3ef285-b2a5-4d3d-81f9-cd46dd089711)
 
 ## TODO
 

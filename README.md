@@ -27,14 +27,14 @@ Use on a single image:
 exiffusion fuse INPUT_IMAGE_PATH OUTPUT_DIRECTORY_PATH
 ```
 
-![Single Photo Usage](examples/single_photo_usage_example.png)
+![Single Photo Usage](https://github.com/JFBarryLi/ExifFusion/assets/40674314/423b8bac-95d9-4061-86d7-3f4392d761bc)
 
 Or use on a directory of images:
 ```bash
 exiffusion fuse INPUT_DIRECTORY_PATH OUTPUT_DIRECTORY_PATH
 ```
 
-![Photo Directory Usage](examples/photo_directory_usage_example.png)
+![Photo Directory Usage](https://github.com/JFBarryLi/ExifFusion/assets/40674314/f9c56d12-805e-4071-8675-0c4b4277d708)
 
 For help:
 ```bash

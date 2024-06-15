@@ -11,7 +11,11 @@ log = logging.getLogger(__name__)
 
 geolocator = Nominatim(user_agent="ExifFusion")
 
-reverse_limit = RateLimiter(geolocator.reverse, min_delay_seconds=1)
+reverse_limit = RateLimiter(
+    geolocator.reverse,
+    min_delay_seconds=1,
+    max_retries=4,
+)
 
 reverse = functools.lru_cache(maxsize=1024)(functools.partial(reverse_limit, timeout=5))
 

@@ -1,4 +1,3 @@
-from importlib.resources import files
 from pathlib import PosixPath
 import logging
 
@@ -6,6 +5,7 @@ from PIL import ImageFont, ImageDraw, Image
 from pillow_heif import register_heif_opener
 
 from exiffusion.color import Color, color_contrast
+from exiffusion.font import get_font
 
 register_heif_opener()
 
@@ -17,7 +17,7 @@ def overlay_text(image: str | PosixPath, text: str, output_dir: str | PosixPath)
     img = Image.open(image)
 
     font_size = max(img.size) * 0.025
-    font_path = files("exiffusion.assets").joinpath("WorkSans-Medium.otf")
+    font_path = get_font(text)
     font = ImageFont.truetype(font_path, font_size)
     width, height = img.size
     margin = font_size

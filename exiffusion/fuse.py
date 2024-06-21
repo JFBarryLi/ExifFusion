@@ -65,16 +65,20 @@ def process_images(
 
                 if location.city is not None and location.country is not None:
                     text = f"{formatted_datetime}\n{location.city}, {location.country}"
-                elif location.country is not None and location.address is not None:
-                    text = f"{formatted_datetime}\n{location.address.split(',')[0]}, {location.country}"
                 elif location.country is not None and location.state is not None:
-                    text = f"{formatted_datetime}\n{location.state}, {location.country}\n{round(location.latitude, 4)}, {round(location.longitude, 4)}"
+                    text = f"{formatted_datetime}\n{location.state}, {location.country}"
+                elif (
+                    location.country is not None
+                    and location.address is not None
+                    and len(location.address.split(",")[0]) < 16
+                ):
+                    text = f"{formatted_datetime}\n{location.address.split(',')[0]}, {location.country}"
                 elif (
                     location.country is not None
                     and location.latitude is not None
                     and location.longitude is not None
                 ):
-                    text = f"{formatted_datetime}\n{location.country}\n{round(location.latitude, 4)}, {round(location.longitude, 4)}"
+                    text = f"{formatted_datetime}\n{round(location.latitude, 4)}, {round(location.longitude, 4)}\n{location.country}"
                 else:
                     text = f"{formatted_datetime}"
             else:

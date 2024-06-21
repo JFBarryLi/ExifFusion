@@ -18,6 +18,8 @@ def has_glyph(font: TTFont, glyph: str) -> bool:
 
 
 def get_font(text: str) -> str | PosixPath:
+    text = text.replace("\n", "")
+
     font_options = [
         files("exiffusion.assets").joinpath("WorkSans-Medium.otf"),
         files("exiffusion.assets").joinpath("unifont-15.1.05.otf"),

@@ -84,3 +84,16 @@ def calc_dominant_color(img: Image, palette_size: int = 4) -> Color:
         f"Dominant color for text overlay region: {dominant_color}; {img.filename}"
     )
     return Color(R=dominant_color[0], G=dominant_color[1], B=dominant_color[2])
+
+
+def calc_dominant_color_rescaling(img: Image):
+    image = img.copy()
+    image = image.convert("RGBA")
+    image = img.resize((1, 1), resample=0)
+    dominant_color = image.getpixel((0, 0))
+
+    log.info(
+        f"Dominant color for text overlay region: {dominant_color}; {img.filename}"
+    )
+
+    return Color(R=dominant_color[0], G=dominant_color[1], B=dominant_color[2])

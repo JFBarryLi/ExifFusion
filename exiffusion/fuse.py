@@ -63,22 +63,40 @@ def process_images(
                     exif_tags.GPSLongitude,
                 )
 
-                if location.city is not None and location.country is not None:
-                    text = f"{formatted_datetime}\n{location.city}, {location.country}"
-                elif location.country is not None and location.state is not None:
-                    text = f"{formatted_datetime}\n{location.state}, {location.country}"
-                elif (
-                    location.country is not None
-                    and location.address is not None
-                    and len(location.address.split(",")[0]) < 16
-                ):
-                    text = f"{formatted_datetime}\n{location.address.split(',')[0]}, {location.country}"
-                elif (
-                    location.country is not None
-                    and location.latitude is not None
-                    and location.longitude is not None
-                ):
-                    text = f"{formatted_datetime}\n{round(location.latitude, 4)}, {round(location.longitude, 4)}\n{location.country}"
+                text = f"{formatted_datetime}"
+
+                if location.country is not None:
+                    if location.village is not None:
+                        text += f"\n{location.village}, {location.country}"
+                    elif location.town is not None:
+                        text += f"\n{location.town}, {location.country}"
+                    elif location.city is not None:
+                        text += f"\n{location.city}, {location.country}"
+                    elif location.municipality is not None:
+                        text += f"\n{location.municipality}, {location.country}"
+                    elif location.name is not None:
+                        text += f"\n{location.name}, {location.country}"
+                    elif location.region is not None:
+                        text += f"\n{location.region}, {location.country}"
+                    elif location.county is not None:
+                        text += f"\n{location.county}, {location.country}"
+                    elif location.state_district is not None:
+                        text += f"\n{location.state_district}, {location.country}"
+                    elif location.district is not None:
+                        text += f"\n{location.district}, {location.country}"
+                    elif location.state is not None:
+                        text += f"\n{location.state}, {location.country}"
+                    elif (
+                        location.address is not None
+                        and len(location.address.split(",")[0]) < 16
+                    ):
+                        text += (
+                            f"\n{location.address.split(',')[0]}, {location.country}"
+                        )
+                    elif (
+                        location.latitude is not None and location.longitude is not None
+                    ):
+                        text += f"\n{round(location.latitude, 4)}, {round(location.longitude, 4)}\n{location.country}"
                 else:
                     text = f"{formatted_datetime}"
             else:

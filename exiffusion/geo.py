@@ -21,13 +21,26 @@ reverse = functools.lru_cache(maxsize=1024)(functools.partial(reverse_limit, tim
 
 
 class Location(BaseModel):
+    name: Optional[str] = None
     address: Optional[str] = None
     latitude: float
     longitude: float
+    neighbourhood: Optional[str] = None
+    subdivision: Optional[str] = None
+    suburb: Optional[str] = None
+    borough: Optional[str] = None
+    city_district: Optional[str] = None
+    village: Optional[str] = None
+    town: Optional[str] = None
     city: Optional[str] = None
+    municipality: Optional[str] = None
+    region: Optional[str] = None
+    county: Optional[str] = None
+    state_district: Optional[str] = None
+    district: Optional[str] = None
     state: Optional[str] = None
-    country: str
-    country_code: str
+    country: Optional[str] = None
+    country_code: Optional[str] = None
 
 
 class LatLng(BaseModel):
@@ -67,34 +80,85 @@ def dms_to_degrees(
 
 def reverse_geo_code(lat: float, lng: float) -> Location:
     try:
-        rev = reverse((lat, lng), language="en")
+        rev = reverse((lat, lng), language="en", addressdetails=True)
 
         rev_address = rev.raw.get("address")
+        rev_name = rev.raw.get("name")
 
         log.info(f"Reverse geocoding: {lat}, {lng}.")
-        return Location(
-            **{
-                "address": rev.address,
-                "latitude": lat,
-                "longitude": lng,
-                "city": rev_address.get("city") if rev_address is not None else None,
-                "state": rev_address.get("state") if rev_address is not None else None,
-                "country": rev_address.get("country")
-                if rev_address is not None
-                else None,
-                "country_code": rev_address.get("country_code")
-                if rev_address is not None
-                else None,
-            }
-        )
+        if rev_address is None:
+            return Location(
+                **{
+                    "name": rev_name if rev_name != "" else None,
+                    "address": rev.address if rev.address != "" else None,
+                    "latitude": lat,
+                    "longitude": lng,
+                    "neighbourhood": None,
+                    "subdivision": None,
+                    "suburb": None,
+                    "borough": None,
+                    "city_district": None,
+                    "village": None,
+                    "town": None,
+                    "city": None,
+                    "municipality": None,
+                    "region": None,
+                    "county": None,
+                    "state_district": None,
+                    "district": None,
+                    "state": None,
+                    "country": None,
+                    "country_code": None,
+                }
+            )
+        else:
+            return Location(
+                **{
+                    "name": rev_name if rev_name != "" else None,
+                    "address": rev.address if rev.address != "" else None,
+                    "latitude": lat,
+                    "longitude": lng,
+                    "neighbourhood": rev_address.get("neighbourhood"),
+                    "subdivision": rev_address.get("subdivision"),
+                    "suburb": rev_address.get("suburb"),
+                    "borough": rev_address.get("borough"),
+                    "city_district": rev_address.get("city_district"),
+                    "village": rev_address.get("village"),
+                    "town": rev_address.get("town"),
+                    "city": rev_address.get("city"),
+                    "municipality": rev_address.get("municipality"),
+                    "region": rev_address.get("region"),
+                    "county": rev_address.get("county"),
+                    "state_district": rev_address.get("state_district"),
+                    "district": rev_address.get("district"),
+                    "state": rev_address.get("state"),
+                    "country": rev_address.get("country"),
+                    "country_code": rev_address.get("country_code"),
+                }
+            )
     except Exception as e:
         log.error(f"Failed to reverse geocode: {lat}, {lng}. Exception: {e}.")
-        return {
-            "address": None,
-            "latitude": None,
-            "longitude": None,
-            "city": None,
-            "state": None,
-            "country": None,
-            "country_code": None,
-        }
+        return Location(
+            **{
+                "name": None,
+                "address": None,
+                "latitude": lat,
+                "longitude": lng,
+                "neighbourhood": None,
+                "subdivision": None,
+                "suburb": None,
+                "borough": None,
+                "city_district": None,
+                "village": None,
+                "town": None,
+                "city": None,
+                "municipality": None,
+                "region": None,
+                "county": None,
+                "state_district": None,
+                "district": None,
+                "state": None,
+                "country": None,
+                "country_code": None,
+            }
+        )

@@ -66,29 +66,35 @@ def process_images(
                 text = f"{formatted_datetime}"
 
                 if location.country is not None:
-                    if location.village is not None:
+                    if location.village is not None and len(location.village) <= 30:
                         text += f"\n{location.village}, {location.country}"
-                    elif location.town is not None:
+                    elif location.town is not None and len(location.town) <= 30:
                         text += f"\n{location.town}, {location.country}"
-                    elif location.city is not None:
+                    elif location.city is not None and len(location.city) <= 30:
                         text += f"\n{location.city}, {location.country}"
-                    elif location.municipality is not None:
+                    elif (
+                        location.municipality is not None
+                        and len(location.municipality) <= 30
+                    ):
                         text += f"\n{location.municipality}, {location.country}"
-                    elif location.name is not None:
+                    elif location.name is not None and len(location.name) <= 30:
                         text += f"\n{location.name}, {location.country}"
-                    elif location.region is not None:
+                    elif location.region is not None and len(location.region) <= 30:
                         text += f"\n{location.region}, {location.country}"
-                    elif location.county is not None:
+                    elif location.county is not None and len(location.county) <= 30:
                         text += f"\n{location.county}, {location.country}"
-                    elif location.state_district is not None:
+                    elif (
+                        location.state_district is not None
+                        and len(location.state_district) <= 30
+                    ):
                         text += f"\n{location.state_district}, {location.country}"
-                    elif location.district is not None:
+                    elif location.district is not None and len(location.district) <= 30:
                         text += f"\n{location.district}, {location.country}"
-                    elif location.state is not None:
+                    elif location.state is not None and len(location.state) <= 30:
                         text += f"\n{location.state}, {location.country}"
                     elif (
                         location.address is not None
-                        and len(location.address.split(",")[0]) < 16
+                        and len(location.address.split(",")[0]) <= 30
                     ):
                         text += (
                             f"\n{location.address.split(',')[0]}, {location.country}"

@@ -108,7 +108,7 @@ def process_images(
             else:
                 text = f"{formatted_datetime}"
 
-            overlay_text(img, text, output_dir)
+            overlay_text(img, text, output_dir, exif_tags.Orientation)
             successes.append(img)
         except Exception as e:
             log.error(f"Failed to process {img}. Error: {e}")

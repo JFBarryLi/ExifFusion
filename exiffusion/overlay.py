@@ -1,4 +1,5 @@
 from pathlib import PosixPath
+from typing import Optional
 import logging
 
 from PIL import ImageFont, ImageDraw, Image
@@ -12,9 +13,17 @@ register_heif_opener()
 log = logging.getLogger(__name__)
 
 
-def overlay_text(image: str | PosixPath, text: str, output_dir: str | PosixPath):
+def overlay_text(
+    image: str | PosixPath,
+    text: str,
+    output_dir: str | PosixPath,
+    orientation: Optional[int] = None,
+):
     log.info(f"Overlaying text on {image}.")
     img = Image.open(image)
+
+    if img.filename.lower().endswith(("jpg", "jpeg")):
+        img = orient_image(img, orientation)
 
     font_size = max(img.size) * 0.025
     font_path = get_font(text)
@@ -86,7 +95,7 @@ def calc_dominant_color(img: Image, palette_size: int = 4) -> Color:
     return Color(R=dominant_color[0], G=dominant_color[1], B=dominant_color[2])
 
 
-def calc_dominant_color_rescaling(img: Image):
+def calc_dominant_color_rescaling(img: Image) -> Color:
     image = img.copy()
     image = image.convert("RGBA")
     image = img.resize((1, 1), resample=0)
@@ -97,3 +106,20 @@ def calc_dominant_color_rescaling(img: Image):
     )
 
     return Color(R=dominant_color[0], G=dominant_color[1], B=dominant_color[2])
+
+
+def orient_image(img: Image, orientation: Optional[int] = None) -> Image:
+    if not orientation:
+        return img
+
+    file_name = img.filename
+    oriented_img = img
+    if orientation == 3:
+        oriented_img = img.rotate(180, expand=True)
+    elif orientation == 6:
+        oriented_img = img.rotate(270, expand=True)
+    elif orientation == 8:
+        oriented_img == img.rotate(90, expand=True)
+
+    oriented_img.filename = file_name
+    return oriented_img

@@ -52,7 +52,7 @@ def overlay_text(
 
     output_name = image.name if type(image) is PosixPath else image.split("/")[-1]
 
-    img.save(f"{output_dir}/{output_name}")
+    img.save(f"{output_dir}/{output_name}", exif=img.getexif())
 
 
 def calc_text_color(img: Image, left: int, top: int, right: int, bottom: int) -> Color:
